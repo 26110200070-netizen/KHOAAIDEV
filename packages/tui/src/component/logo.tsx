@@ -5,11 +5,12 @@ import { logo } from "../logo"
 
 export function Logo() {
   const { theme } = useTheme()
-  const blueColor = RGBA.fromHex("#38bdf8")
-  const grayColor = RGBA.fromHex("#9ca3af")
+  const whiteBg = RGBA.fromHex("#ffffff")
+  const blueColor = RGBA.fromHex("#0284c7")
+  const darkGrayColor = RGBA.fromHex("#4b5563")
 
   const renderLine = (line: string, fg: RGBA, bold: boolean): JSX.Element[] => {
-    const shadow = tint(theme.background, fg, 0.25)
+    const shadow = tint(whiteBg, fg, 0.25)
     const attrs = bold ? TextAttributes.BOLD : undefined
     return Array.from(line).map((char) => {
       if (char === "_") {
@@ -28,20 +29,20 @@ export function Logo() {
       }
       if (char === "~") {
         return (
-          <text fg={shadow} attributes={attrs} selectable={false}>
+          <text fg={shadow} bg={whiteBg} attributes={attrs} selectable={false}>
             ▀
           </text>
         )
       }
       if (char === ",") {
         return (
-          <text fg={shadow} attributes={attrs} selectable={false}>
+          <text fg={shadow} bg={whiteBg} attributes={attrs} selectable={false}>
             ▄
           </text>
         )
       }
       return (
-        <text fg={fg} attributes={attrs} selectable={false}>
+        <text fg={fg} bg={whiteBg} attributes={attrs} selectable={false}>
           {char}
         </text>
       )
@@ -49,7 +50,14 @@ export function Logo() {
   }
 
   return (
-    <box alignItems="center">
+    <box
+      alignItems="center"
+      backgroundColor={whiteBg}
+      paddingLeft={3}
+      paddingRight={3}
+      paddingTop={1}
+      paddingBottom={1}
+    >
       <For each={logo.left}>
         {(line, index) => (
           <box flexDirection="row" gap={1}>
@@ -59,7 +67,7 @@ export function Logo() {
         )}
       </For>
       <box marginTop={1} flexDirection="row" alignItems="center">
-        <text fg={grayColor} selectable={false}>
+        <text fg={darkGrayColor} bg={whiteBg} selectable={false}>
           by Khoa Dev
         </text>
       </box>

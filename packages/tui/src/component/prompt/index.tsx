@@ -1457,7 +1457,7 @@ export function Prompt(props: PromptProps) {
                 {(agent) => (
                   <box flexDirection="row" gap={1} alignItems="center">
                     <text fg={fadeColor(highlight(), agentMetaAlpha())}>
-                      {store.mode === "shell" ? "Shell" : Locale.titlecase(agent().name)}
+                      {store.mode === "shell" ? "Shell" : agent().name.toLowerCase() === "build" ? "Agent" : Locale.titlecase(agent().name)}
                     </text>
                     <Show when={store.mode === "normal" && local.permission.mode === "auto"}>
                       <text fg={fadeColor(theme.textMuted, agentMetaAlpha())}>auto</text>
@@ -1658,7 +1658,7 @@ export function Prompt(props: PromptProps) {
               )}
             </Match>
           </Switch>
-          <box flexShrink={0}>
+          <box flexShrink={0} marginLeft={2} marginRight={2}>
             <text fg={theme.textMuted}>
               <span style={{ fg: RGBA.fromHex("#38bdf8"), bold: true }}>KhoaAI</span> by Khoa Dev
             </text>
