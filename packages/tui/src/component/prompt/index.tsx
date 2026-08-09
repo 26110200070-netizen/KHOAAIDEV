@@ -1441,6 +1441,17 @@ export function Prompt(props: PromptProps) {
               cursorStyle={tuiConfig.cursor}
               syntaxStyle={syntax()}
             />
+            <box
+              width="100%"
+              height={1}
+              marginTop={1}
+              border={["bottom"]}
+              borderColor={theme.border}
+              customBorderChars={{
+                ...EmptyBorder,
+                horizontal: "─",
+              }}
+            />
             <box flexDirection="row" flexShrink={0} paddingTop={1} gap={1} justifyContent="space-between" width="100%">
               <Show when={local.agent.current()} fallback={<box height={1} />}>
                 {(agent) => (
@@ -1670,8 +1681,8 @@ export function Prompt(props: PromptProps) {
                       </text>
                     </Match>
                   </Switch>
-                  <text fg={theme.text}>
-                    {paletteShortcut()} <span style={{ fg: theme.textMuted }}>commands</span>
+                  <text fg={theme.textMuted}>
+                    Gõ <span style={{ fg: theme.text, bold: true }}>"/"</span> để bật commands
                   </text>
                 </Match>
                 <Match when={store.mode === "shell"}>
