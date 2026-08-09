@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "version": "1.0.6",
+  "name": "khoaaidev",
+  "description": "KHOA.AI development tool",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsgo --noEmit",
+    "test": "bun test --timeout 30000 --only-failures",
+    "test:httpapi": "bun run script/httpapi-exercise.ts --mode coverage --fail-on-missing --fail-on-skip && bun run script/httpapi-exercise.ts --mode auth --fail-on-missing --fail-on-skip && bun run script/httpapi-exercise.ts --mode effect --fail-on-missing --fail-on-skip",
+    "bench:test": "bun run script/bench-test-suite.ts",
+    "profile:test": "bun run script/profile-test-files.ts",
+    "build": "bun run script/build.ts",
+    "dev": "bun run --conditions=browser ./src/index.ts",
+    "dev:temporary": "bun run --conditions=browser ./src/temporary.ts"
+  },
+  "bin": {
+    "khoaaidev": "./bin/khoaaidev"
+  },
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "imports": {
+    "#db": {
+      "bun": "./src/storage/db.bun.ts",
+      "node": "./src/storage/db.node.ts",
+      "default": "./src/storage/db.bun.ts"
+    }
+  },
+  "dependencies": {}
+}
