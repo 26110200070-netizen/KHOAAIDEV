@@ -569,7 +569,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "session.list",
-        title: "Switch session",
+        title: "Đổi phiên làm việc (sessions)",
         category: "Session",
         suggested: sync.data.session.length > 0,
         slashName: "sessions",
@@ -580,7 +580,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "session.new",
-        title: "New session",
+        title: "Tạo phiên làm việc mới (new)",
         suggested: route.data.type === "session",
         category: "Session",
         slashName: "new",
@@ -594,7 +594,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "workspace.copy_path",
-        title: "Copy worktree path",
+        title: "Sao chép đường dẫn làm việc",
         category: "Workspace",
         enabled: () => currentWorktreeWorkspace() !== undefined,
         run: async () => {
@@ -602,14 +602,14 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
           if (!workspace?.directory) return
           await clipboard
             .write?.(workspace.directory)
-            .then(() => toast.show({ message: "Copied worktree path", variant: "info" }))
+            .then(() => toast.show({ message: "Đã sao chép đường dẫn làm việc", variant: "info" }))
             .catch(toast.error)
           dialog.clear()
         },
       },
       {
         name: "workspace.list",
-        title: "Manage workspaces",
+        title: "Quản lý thư mục làm việc (workspaces)",
         category: "Workspace",
         hidden: !Flag.OPENCODE_EXPERIMENTAL_WORKSPACES,
         slashName: "workspaces",
@@ -628,7 +628,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       })),
       {
         name: "model.list",
-        title: "Switch model",
+        title: "Chọn Model AI (models)",
         suggested: true,
         category: "Agent",
         slashName: "models",
@@ -676,7 +676,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "agent.list",
-        title: "Switch agent",
+        title: "Đổi Agent trợ lý (agents)",
         category: "Agent",
         slashName: "agents",
         run: () => {
@@ -685,7 +685,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "mcp.list",
-        title: "Toggle MCPs",
+        title: "Bật/Tắt MCP Server (mcps)",
         category: "Agent",
         slashName: "mcps",
         run: () => {
@@ -711,15 +711,15 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "variant.list",
-        title: "Switch model variant",
+        title: "Đổi biến thể Model (variants)",
         category: "Agent",
         hidden: local.model.variant.list().length === 0,
         slashName: "variants",
         run: () => {
           if (local.model.variant.list().length === 0) {
             return toast.show({
-              title: "No variants available",
-              message: "The current model does not support any variants.",
+              title: "Không có biến thể",
+              message: "Model hiện tại không hỗ trợ biến thể.",
               variant: "info",
             })
           }
@@ -737,7 +737,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "provider.connect",
-        title: "Connect provider",
+        title: "Kết nối nhà cung cấp AI (connect)",
         suggested: !connected(),
         slashName: "connect",
         run: () => {
@@ -749,7 +749,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         ? [
             {
               name: "console.org.switch",
-              title: "Switch org",
+              title: "Đổi tổ chức (org)",
               suggested: Boolean(sync.data.console_state.activeOrgName),
               slashName: "org",
               slashAliases: ["orgs", "switch-org"],
@@ -762,7 +762,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
         : []),
       {
         name: "opencode.status",
-        title: "View status",
+        title: "Xem trạng thái hệ thống (status)",
         slashName: "status",
         run: () => {
           dialog.replace(() => <DialogStatus />)
@@ -771,7 +771,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "opencode.debug",
-        title: "View debug info",
+        title: "Xem thông tin gỡ lỗi (debug)",
         slashName: "debug",
         run: () => {
           dialog.replace(() => <DialogDebug />)
@@ -780,7 +780,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "theme.switch",
-        title: "Switch theme",
+        title: "Đổi giao diện theme (themes)",
         slashName: "themes",
         run: () => {
           dialog.replace(() => <DialogThemeList />)
@@ -789,7 +789,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "theme.switch_mode",
-        title: mode() === "dark" ? "Switch to light mode" : "Switch to dark mode",
+        title: mode() === "dark" ? "Chuyển sang chế độ sáng (Light Mode)" : "Chuyển sang chế độ tối (Dark Mode)",
         run: () => {
           setMode(mode() === "dark" ? "light" : "dark")
           dialog.clear()
@@ -798,7 +798,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "theme.mode.lock",
-        title: locked() ? "Unlock theme mode" : "Lock theme mode",
+        title: locked() ? "Mở khóa chế độ theme" : "Khóa chế độ theme",
         run: () => {
           if (locked()) unlock()
           else lock()
@@ -808,7 +808,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "help.show",
-        title: "Help",
+        title: "Trợ giúp & Hướng dẫn (help)",
         slashName: "help",
         run: () => {
           dialog.replace(() => <DialogHelp />)
@@ -817,7 +817,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "docs.open",
-        title: "Open docs",
+        title: "Mở tài liệu hướng dẫn",
         run: () => {
           open("https://opencode.ai/docs").catch(() => {})
           dialog.clear()
@@ -826,7 +826,7 @@ function App(props: { onSnapshot?: () => Promise<string[]>; pluginHost: TuiPlugi
       },
       {
         name: "app.exit",
-        title: "Exit the app",
+        title: "Thoát ứng dụng KhoaAI Dev (exit)",
         slashName: "exit",
         slashAliases: ["quit", "q"],
         run: () => exit(),
