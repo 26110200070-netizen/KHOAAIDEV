@@ -1658,6 +1658,11 @@ export function Prompt(props: PromptProps) {
               )}
             </Match>
           </Switch>
+          <box flexShrink={0}>
+            <text fg={theme.textMuted}>
+              <span style={{ fg: RGBA.fromHex("#38bdf8"), bold: true }}>KhoaAI</span> by Khoa Dev
+            </text>
+          </box>
           <Show when={status().type !== "retry"}>
             <box gap={2} flexDirection="row">
               <Show when={editorContextLabelState() !== "none" ? editorFileLabelDisplay() : undefined}>
